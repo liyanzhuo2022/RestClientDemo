@@ -14,9 +14,8 @@ import org.springframework.web.service.annotation.PutExchange;
 import com.restclientdemo.send_message_service.domain.PhoneBook;
 import com.restclientdemo.send_message_service.domain.PhoneBookDto;
 
-@Component
 @HttpExchange("/phone_book")
-public interface PhoneBookHttpInterface {
+public interface PhoneBookHttpClient {
 
     @PostExchange
     PhoneBook createPhoneBook(@RequestBody PhoneBookDto phoneBookDto);

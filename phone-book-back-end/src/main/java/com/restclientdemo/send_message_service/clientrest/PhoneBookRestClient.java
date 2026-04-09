@@ -20,7 +20,6 @@ public class PhoneBookRestClient implements PhoneBookClient {
     private final RestClient restClient;
 
     PhoneBookRestClient(RestClient.Builder restClientBuilder) {
-        log.info("Creating PhoneBookRestClient");
 
         restClient = restClientBuilder
                 .baseUrl("http://localhost:8080")
