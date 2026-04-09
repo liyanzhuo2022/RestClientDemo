@@ -1,0 +1,10 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: send-message-service
+
+app:
+  phone-book-client:
+    type: HTTP_CLIENT

@@ -1,0 +1,30 @@
+### Create phone book entry
+POST http://localhost:8080/phone_book
+Content-Type: application/json
+
+{
+  "userName": "Alice",
+  "phoneNumber": "123456"
+}
+
+###
+
+### Get all phone book entries
+GET http://localhost:8080/phone_book
+Accept: application/json
+
+###
+
+### Update phone book entry (id = 1)
+PUT http://localhost:8080/phone_book/1
+Content-Type: application/json
+
+{
+  "userName": "Alice Updated",
+  "phoneNumber": "999999"
+}
+
+###
+
+### Delete phone book entry (id = 1)
+DELETE http://localhost:8080/phone_book/1
