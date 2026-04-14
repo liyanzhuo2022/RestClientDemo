@@ -19,17 +19,16 @@ import lombok.extern.slf4j.Slf4j;
 public class PhoneBookRestClient implements PhoneBookClient {
     private final RestClient restClient;
 
-    PhoneBookRestClient(RestClient.Builder restClientBuilder) {
+    PhoneBookRestClient(RestClient.Builder restClientBuilder, ClientProperties properties) {
 
         restClient = restClientBuilder
-                .baseUrl("http://localhost:8080")
+                .baseUrl(properties.baseHostUrl)
                 .build();
     }
 
     @Override
     public PhoneBook createPhoneBook(PhoneBookDto phoneBookDto) {
         return restClient.post()
-                .uri("/phone_book")
                 .body(phoneBookDto)
                 .retrieve()
                 .body(PhoneBook.class);
@@ -38,7 +37,6 @@ public class PhoneBookRestClient implements PhoneBookClient {
     @Override
     public List<PhoneBook> getPhoneBooks() {
         return restClient.get()
-                .uri("/phone_book")
                 .retrieve()
                 .body(new ParameterizedTypeReference<List<PhoneBook>>() {});
     }
@@ -46,7 +44,7 @@ public class PhoneBookRestClient implements PhoneBookClient {
     @Override
     public PhoneBook updatePhoneBook(long id, PhoneBookDto phoneBookDto) {
         return restClient.put()
-                .uri("/phone_book/{id}", id)
+                .uri("/{id}", id)
                 .body(phoneBookDto)
                 .retrieve()
                 .body(PhoneBook.class);
@@ -55,7 +53,7 @@ public class PhoneBookRestClient implements PhoneBookClient {
     @Override
     public void deletePhoneBook(long id) {
         restClient.delete()
-                .uri("/phone_book/{id}", id)
+                .uri("/{id}", id)
                 .retrieve()
                 .toBodilessEntity();
     }

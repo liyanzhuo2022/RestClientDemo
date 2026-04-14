@@ -8,10 +8,9 @@ import org.springframework.web.client.RestClient;
 
 @Configuration
 public class PhoneBookClientConfiguration {
-    String base_url = "http://localhost:8080";
 
     @Bean("HTTP_CLIENT")
-    PhoneBookHttpClient phoneBookHttpClient(RestClient.Builder restClientBuilder) {
-        return createRestClientInterface(restClientBuilder, base_url, PhoneBookHttpClient.class);
+    PhoneBookHttpClient phoneBookHttpClient(RestClient.Builder restClientBuilder, ClientProperties properties) {
+        return createRestClientInterface(restClientBuilder, properties, PhoneBookHttpClient.class);
     }
 }

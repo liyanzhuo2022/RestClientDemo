@@ -13,6 +13,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.restclient.test.autoconfigure.RestClientTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 
@@ -22,6 +23,7 @@ import com.restclientdemo.send_message_service.domain.PhoneBookDto;
 import tools.jackson.databind.ObjectMapper;
 
 @RestClientTest(value = PhoneBookRestClient.class, properties = "app.phone-book-client.type=REST_CLIENT")
+@Import({ClientProperties.class})
 class PhoneBookRestClientTest {
 
     @Autowired

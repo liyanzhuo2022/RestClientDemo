@@ -1,5 +1,13 @@
 package com.restclientdemo.send_message_service.clientrest;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.delete;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.givenThat;
+import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
+import static com.github.tomakehurst.wiremock.client.WireMock.post;
+import static com.github.tomakehurst.wiremock.client.WireMock.put;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.client.ExpectedCount.once;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
@@ -15,21 +23,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.restclient.test.autoconfigure.RestClientTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.client.MockRestServiceServer;
+import org.wiremock.spring.EnableWireMock;
 
 import com.restclientdemo.send_message_service.domain.PhoneBook;
 import com.restclientdemo.send_message_service.domain.PhoneBookDto;
 
 import tools.jackson.databind.json.JsonMapper;
 
+@EnableWireMock
 @RestClientTest(value = PhoneBookHttpRestClient.class, properties = "app.phone-book-client.type=HTTP_CLIENT")
-@Import(PhoneBookClientConfiguration.class)
+@Import({PhoneBookClientConfiguration.class, ClientProperties.class})
+@TestPropertySource(properties = {"app.phone-book-client.base-host-url=${wiremock.server.baseUrl}/phone_book"})
 class PhoneBookHttpRestClientTest {
     @Autowired
     private PhoneBookHttpRestClient sut;
-
-    @Autowired
-    private MockRestServiceServer server;
 
     @Autowired
     private JsonMapper mapper;
@@ -54,13 +63,9 @@ class PhoneBookHttpRestClientTest {
         var dto = newDto();
         var created = phoneBook();
 
-        server.expect(once(), requestTo("http://localhost:8080/phone_book"))
-                .andExpect(method(org.springframework.http.HttpMethod.POST))
-                .andExpect(content().json(mapper.writeValueAsString(dto)))
-                .andRespond(withSuccess(
-                        mapper.writeValueAsString(created),
-                        MediaType.APPLICATION_JSON
-                ));
+        givenThat(post("/phone_book")
+                .withRequestBody(equalToJson(mapper.writeValueAsString(dto)))
+                .willReturn(okJson(mapper.writeValueAsString(created))));
 
         var result = sut.createPhoneBook(dto);
 
@@ -73,12 +78,8 @@ class PhoneBookHttpRestClientTest {
     void getPhoneBooks() {
         var list = List.of(phoneBook());
 
-        server.expect(once(), requestTo("http://localhost:8080/phone_book"))
-                .andExpect(method(org.springframework.http.HttpMethod.GET))
-                .andRespond(withSuccess(
-                        mapper.writeValueAsString(list),
-                        MediaType.APPLICATION_JSON
-                ));
+        givenThat(get("/phone_book")
+                .willReturn(okJson(mapper.writeValueAsString(list))));
 
         var result = sut.getPhoneBooks();
 
@@ -92,13 +93,9 @@ class PhoneBookHttpRestClientTest {
         var updated = phoneBook();
         updated.setUserName("UpdatedName");
 
-        server.expect(once(), requestTo("http://localhost:8080/phone_book/1"))
-                .andExpect(method(org.springframework.http.HttpMethod.PUT))
-                .andExpect(content().json(mapper.writeValueAsString(dto)))
-                .andRespond(withSuccess(
-                        mapper.writeValueAsString(updated),
-                        MediaType.APPLICATION_JSON
-                ));
+        givenThat(put("/phone_book/1")
+                .withRequestBody(equalToJson(mapper.writeValueAsString(dto)))
+                .willReturn(okJson(mapper.writeValueAsString(updated))));
 
         var result = sut.updatePhoneBook(1L, dto);
 
@@ -107,12 +104,9 @@ class PhoneBookHttpRestClientTest {
 
     @Test
     void deletePhoneBook() throws Exception {
-        server.expect(once(), requestTo("http://localhost:8080/phone_book/1"))
-                .andExpect(method(org.springframework.http.HttpMethod.DELETE))
-                .andRespond(withNoContent());
+        givenThat(delete("/phone_book/1")
+                .willReturn(aResponse().withStatus(204)));
 
         sut.deletePhoneBook(1L);
-
-        server.verify();
     }
 }
