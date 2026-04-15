@@ -1,4 +1,4 @@
-package com.restclientdemo.echo_service.clientrest;
+package com.restclientdemo.echo_service.clientrest.configuration;
 
 import static org.apache.hc.core5.util.Timeout.ofMilliseconds;
 

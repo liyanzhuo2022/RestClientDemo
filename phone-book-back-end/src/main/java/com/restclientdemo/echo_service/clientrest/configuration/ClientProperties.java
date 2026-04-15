@@ -1,4 +1,4 @@
-package com.restclientdemo.echo_service.clientrest;
+package com.restclientdemo.echo_service.clientrest.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -8,6 +8,8 @@ import lombok.Data;
 @ConfigurationProperties("app.phone-book-client")
 public class ClientProperties {
     protected String baseHostUrl;
+
+    protected ClientType type;
 
     protected int maxTotalConnections = 100;
 

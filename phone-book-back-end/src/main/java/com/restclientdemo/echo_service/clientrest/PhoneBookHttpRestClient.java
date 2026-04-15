@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-@ConditionalOnProperty(name = "app.phone-book-client.type", havingValue = "HTTP_CLIENT", matchIfMissing = true)
+@ConditionalOnProperty(name = "app.phone-book-client.type", havingValue = "HTTP_INTERFACE", matchIfMissing = true)
 @RequiredArgsConstructor
 public class PhoneBookHttpRestClient implements PhoneBookClient {
     private final PhoneBookHttpClient httpInterface;

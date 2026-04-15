@@ -19,6 +19,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 
+import com.restclientdemo.echo_service.clientrest.configuration.ClientProperties;
+import com.restclientdemo.echo_service.clientrest.configuration.PhoneBookClientConfiguration;
 import com.restclientdemo.echo_service.domain.PhoneBook;
 import com.restclientdemo.echo_service.domain.PhoneBookDto;
 

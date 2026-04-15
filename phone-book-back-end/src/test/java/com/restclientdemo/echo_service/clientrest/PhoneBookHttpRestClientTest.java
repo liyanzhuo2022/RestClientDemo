@@ -19,13 +19,15 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 import org.wiremock.spring.EnableWireMock;
 
+import com.restclientdemo.echo_service.clientrest.configuration.ClientProperties;
+import com.restclientdemo.echo_service.clientrest.configuration.PhoneBookClientConfiguration;
 import com.restclientdemo.echo_service.domain.PhoneBook;
 import com.restclientdemo.echo_service.domain.PhoneBookDto;
 
 import tools.jackson.databind.json.JsonMapper;
 
 @EnableWireMock
-@RestClientTest(value = PhoneBookHttpRestClient.class, properties = "app.phone-book-client.type=HTTP_CLIENT")
+@RestClientTest(value = PhoneBookHttpRestClient.class, properties = "app.phone-book-client.type=HTTP_INTERFACE")
 @Import({PhoneBookClientConfiguration.class, ClientProperties.class})
 @TestPropertySource(properties = {"app.phone-book-client.base-host-url=${wiremock.server.baseUrl}/phone_book"})
 class PhoneBookHttpRestClientTest {
