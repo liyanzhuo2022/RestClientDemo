@@ -13,7 +13,7 @@ import org.springframework.web.service.annotation.PutExchange;
 import com.restclientdemo.echo_service.domain.PhoneBook;
 import com.restclientdemo.echo_service.domain.PhoneBookDto;
 
-@HttpExchange
+@HttpExchange("/phone_book")
 public interface PhoneBookHttpClient {
 
     @PostExchange

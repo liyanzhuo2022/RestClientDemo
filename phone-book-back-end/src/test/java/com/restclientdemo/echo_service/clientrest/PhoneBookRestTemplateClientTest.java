@@ -10,24 +10,28 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 import java.util.List;
 
+import jakarta.annotation.PostConstruct;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.restclient.test.autoconfigure.RestClientTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 
-import com.restclientdemo.echo_service.clientrest.configuration.PhoneBookClientProperties;
 import com.restclientdemo.echo_service.clientrest.configuration.PhoneBookClientConfiguration;
+import com.restclientdemo.echo_service.clientrest.configuration.PhoneBookClientProperties;
 import com.restclientdemo.echo_service.domain.PhoneBook;
 import com.restclientdemo.echo_service.domain.PhoneBookDto;
 
 import tools.jackson.databind.json.JsonMapper;
 
 @RestClientTest(value = PhoneBookRestTemplateClient.class, properties = "app.phone-book-client.type=REST_TEMPLATE")
-@Import({PhoneBookClientConfiguration.class, PhoneBookClientProperties.class})
+@Import({PhoneBookClientConfiguration.class})
+@EnableConfigurationProperties(PhoneBookClientProperties.class)
 class PhoneBookRestTemplateClientTest {
 
     @Autowired
@@ -36,9 +40,19 @@ class PhoneBookRestTemplateClientTest {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private PhoneBookClientProperties properties;
+
     private PhoneBookRestTemplateClient sut;
 
     private MockRestServiceServer server;
+
+    private String url;
+
+    @PostConstruct
+    void init() {
+        url = properties.getBaseHostUrl() + "/phone_book";
+    }
 
     @BeforeEach
     void setUp() {
@@ -66,7 +80,7 @@ class PhoneBookRestTemplateClientTest {
         var dto = newDto();
         var created = phoneBook();
 
-        server.expect(once(), requestTo("http://localhost:8080/phone_book"))
+        server.expect(once(), requestTo(url))
                 .andExpect(method(org.springframework.http.HttpMethod.POST))
                 .andExpect(content().json(mapper.writeValueAsString(dto)))
                 .andRespond(withSuccess(
@@ -85,7 +99,7 @@ class PhoneBookRestTemplateClientTest {
     void getPhoneBooks() {
         var list = List.of(phoneBook());
 
-        server.expect(once(), requestTo("http://localhost:8080/phone_book"))
+        server.expect(once(), requestTo(url))
                 .andExpect(method(org.springframework.http.HttpMethod.GET))
                 .andRespond(withSuccess(
                         mapper.writeValueAsString(list),
@@ -104,7 +118,7 @@ class PhoneBookRestTemplateClientTest {
         var updated = phoneBook();
         updated.setUserName("UpdatedName");
 
-        server.expect(once(), requestTo("http://localhost:8080/phone_book/1"))
+        server.expect(once(), requestTo(url + "/1"))
                 .andExpect(method(org.springframework.http.HttpMethod.PUT))
                 .andExpect(content().json(mapper.writeValueAsString(dto)))
                 .andRespond(withSuccess(
@@ -119,7 +133,7 @@ class PhoneBookRestTemplateClientTest {
 
     @Test
     void deletePhoneBook() throws Exception {
-        server.expect(once(), requestTo("http://localhost:8080/phone_book/1"))
+        server.expect(once(), requestTo(url + "/1"))
                 .andExpect(method(org.springframework.http.HttpMethod.DELETE))
                 .andRespond(withNoContent());
 

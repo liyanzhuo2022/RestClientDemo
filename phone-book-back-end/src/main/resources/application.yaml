@@ -7,5 +7,5 @@ spring:
 
 app:
   phone-book-client:
-    base-host-url: http://localhost:8080/phone_book
+    base-host-url: http://localhost:8080
     type: REST_TEMPLATE

@@ -23,7 +23,7 @@ public class PhoneBookRestClient implements PhoneBookClient {
     // naive approach: create RestClient in constructor
     PhoneBookRestClient(RestClient.Builder restClientBuilder, PhoneBookClientProperties properties) {
         restClient = restClientBuilder
-                .baseUrl(properties.getBaseHostUrl())
+                .baseUrl(properties.getBaseHostUrl() + "/phone_book")
                 .build();
     }
 

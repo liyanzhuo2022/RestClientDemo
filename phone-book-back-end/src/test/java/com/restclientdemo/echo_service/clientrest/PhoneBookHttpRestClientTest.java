@@ -29,7 +29,7 @@ import tools.jackson.databind.json.JsonMapper;
 @EnableWireMock
 @RestClientTest(value = PhoneBookHttpRestClient.class, properties = "app.phone-book-client.type=HTTP_INTERFACE")
 @Import({PhoneBookClientConfiguration.class, PhoneBookClientProperties.class})
-@TestPropertySource(properties = {"app.phone-book-client.base-host-url=${wiremock.server.baseUrl}/phone_book"})
+@TestPropertySource(properties = {"app.phone-book-client.base-host-url=${wiremock.server.baseUrl}"})
 class PhoneBookHttpRestClientTest {
     @Autowired
     private PhoneBookHttpRestClient sut;

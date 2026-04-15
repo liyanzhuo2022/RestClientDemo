@@ -18,7 +18,7 @@ import org.apache.hc.client5.http.config.RequestConfig;
 public class PhoneBookClientFactory {
     public static <T> T createRestClientInterface(RestClient.Builder restClientBuilder, PhoneBookClientProperties properties, Class<T> tClass) {
         var restClient = restClientBuilder
-                .baseUrl(properties.baseHostUrl)
+                .baseUrl(properties.getBaseHostUrl())
                 .requestFactory(getHttpClientRequestFactory(properties)) // no need to use lambda for RestClient
                 .build();
 
@@ -30,7 +30,7 @@ public class PhoneBookClientFactory {
     public static RestTemplate createRestTemplate(RestTemplateBuilder restTemplateBuilder, PhoneBookClientProperties properties) {
         return restTemplateBuilder
                 .requestFactory(() -> getHttpClientRequestFactory(properties))
-                .rootUri("http://localhost:8080")
+                .rootUri(properties.getBaseHostUrl())
                 .build();
     }
 
