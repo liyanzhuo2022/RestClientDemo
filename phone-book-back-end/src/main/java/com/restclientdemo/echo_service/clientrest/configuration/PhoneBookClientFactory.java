@@ -15,8 +15,8 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 import org.apache.hc.client5.http.config.ConnectionConfig;
 import org.apache.hc.client5.http.config.RequestConfig;
 
-public class ClientFactory {
-    public static <T> T createRestClientInterface(RestClient.Builder restClientBuilder, ClientProperties properties, Class<T> tClass) {
+public class PhoneBookClientFactory {
+    public static <T> T createRestClientInterface(RestClient.Builder restClientBuilder, PhoneBookClientProperties properties, Class<T> tClass) {
         var restClient = restClientBuilder
                 .baseUrl(properties.baseHostUrl)
                 .requestFactory(getHttpClientRequestFactory(properties)) // no need to use lambda for RestClient
@@ -27,14 +27,14 @@ public class ClientFactory {
         return factory.createClient(tClass);
     }
 
-    public static RestTemplate createRestTemplate(RestTemplateBuilder restTemplateBuilder, ClientProperties properties) {
+    public static RestTemplate createRestTemplate(RestTemplateBuilder restTemplateBuilder, PhoneBookClientProperties properties) {
         return restTemplateBuilder
                 .requestFactory(() -> getHttpClientRequestFactory(properties))
                 .rootUri("http://localhost:8080")
                 .build();
     }
 
-    private static ClientHttpRequestFactory getHttpClientRequestFactory(ClientProperties properties) {
+    private static ClientHttpRequestFactory getHttpClientRequestFactory(PhoneBookClientProperties properties) {
         int validateAfterInactivityMillis = properties.getValidateAfterInactivityMillis();
         int connectTimeoutMillis = properties.getConnectTimeoutMillis();
         var connectionConfig = ConnectionConfig.custom()

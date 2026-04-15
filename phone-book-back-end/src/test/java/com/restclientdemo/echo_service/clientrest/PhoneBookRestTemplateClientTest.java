@@ -19,7 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 
-import com.restclientdemo.echo_service.clientrest.configuration.ClientProperties;
+import com.restclientdemo.echo_service.clientrest.configuration.PhoneBookClientProperties;
 import com.restclientdemo.echo_service.clientrest.configuration.PhoneBookClientConfiguration;
 import com.restclientdemo.echo_service.domain.PhoneBook;
 import com.restclientdemo.echo_service.domain.PhoneBookDto;
@@ -27,7 +27,7 @@ import com.restclientdemo.echo_service.domain.PhoneBookDto;
 import tools.jackson.databind.json.JsonMapper;
 
 @RestClientTest(value = PhoneBookRestTemplateClient.class, properties = "app.phone-book-client.type=REST_TEMPLATE")
-@Import({PhoneBookClientConfiguration.class, ClientProperties.class})
+@Import({PhoneBookClientConfiguration.class, PhoneBookClientProperties.class})
 class PhoneBookRestTemplateClientTest {
 
     @Autowired

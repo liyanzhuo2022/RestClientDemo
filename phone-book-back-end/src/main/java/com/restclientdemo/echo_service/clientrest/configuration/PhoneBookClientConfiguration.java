@@ -1,6 +1,6 @@
 package com.restclientdemo.echo_service.clientrest.configuration;
 
-import static com.restclientdemo.echo_service.clientrest.configuration.ClientFactory.createRestClientInterface;
+import static com.restclientdemo.echo_service.clientrest.configuration.PhoneBookClientFactory.createRestClientInterface;
 
 import org.springframework.boot.restclient.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -14,12 +14,12 @@ import com.restclientdemo.echo_service.clientrest.PhoneBookHttpClient;
 public class PhoneBookClientConfiguration {
 
     @Bean("HTTP_CLIENT")
-    PhoneBookHttpClient phoneBookHttpClient(RestClient.Builder restClientBuilder, ClientProperties properties) {
+    PhoneBookHttpClient phoneBookHttpClient(RestClient.Builder restClientBuilder, PhoneBookClientProperties properties) {
         return createRestClientInterface(restClientBuilder, properties, PhoneBookHttpClient.class);
     }
 
     @Bean("REST_TEMPLATE")
-    RestTemplate phoneBookRestTemplate(RestTemplateBuilder restTemplateBuilder, ClientProperties properties) {
-        return ClientFactory.createRestTemplate(restTemplateBuilder, properties);
+    RestTemplate phoneBookRestTemplate(RestTemplateBuilder restTemplateBuilder, PhoneBookClientProperties properties) {
+        return PhoneBookClientFactory.createRestTemplate(restTemplateBuilder, properties);
     }
 }

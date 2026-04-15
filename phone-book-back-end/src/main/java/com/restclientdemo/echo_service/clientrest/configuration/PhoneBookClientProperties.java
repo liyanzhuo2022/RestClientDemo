@@ -6,10 +6,10 @@ import lombok.Data;
 
 @Data
 @ConfigurationProperties("app.phone-book-client")
-public class ClientProperties {
+public class PhoneBookClientProperties {
     protected String baseHostUrl;
 
-    protected ClientType type;
+    protected PhoneBookClientType type;
 
     protected int maxTotalConnections = 100;
 

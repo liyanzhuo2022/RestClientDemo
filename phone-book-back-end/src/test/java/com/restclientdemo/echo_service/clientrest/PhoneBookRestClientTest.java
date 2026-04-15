@@ -17,14 +17,14 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 
-import com.restclientdemo.echo_service.clientrest.configuration.ClientProperties;
+import com.restclientdemo.echo_service.clientrest.configuration.PhoneBookClientProperties;
 import com.restclientdemo.echo_service.domain.PhoneBook;
 import com.restclientdemo.echo_service.domain.PhoneBookDto;
 
 import tools.jackson.databind.json.JsonMapper;
 
 @RestClientTest(value = PhoneBookRestClient.class, properties = "app.phone-book-client.type=REST_CLIENT")
-@Import({ClientProperties.class})
+@Import({PhoneBookClientProperties.class})
 class PhoneBookRestClientTest {
 
     @Autowired
