@@ -8,4 +8,4 @@ spring:
 app:
   phone-book-client:
     base-host-url: http://localhost:8080/phone_book
-    type: HTTP_CLIENT
+    type: REST_TEMPLATE

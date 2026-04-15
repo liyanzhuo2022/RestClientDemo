@@ -15,12 +15,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-@ConditionalOnProperty(name = "app.phone-book-client.type", havingValue = "REST_CLIENT", matchIfMissing = true)
+@ConditionalOnProperty(name = "app.phone-book-client.type", havingValue = "REST_CLIENT")
 public class PhoneBookRestClient implements PhoneBookClient {
     private final RestClient restClient;
 
+    // naive approach: create RestClient in constructor
     PhoneBookRestClient(RestClient.Builder restClientBuilder, ClientProperties properties) {
-
         restClient = restClientBuilder
                 .baseUrl(properties.baseHostUrl)
                 .build();

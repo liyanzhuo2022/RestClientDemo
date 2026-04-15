@@ -10,30 +10,39 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.restclient.test.autoconfigure.RestClientTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.web.client.RestTemplate;
 
 import com.restclientdemo.send_message_service.domain.PhoneBook;
 import com.restclientdemo.send_message_service.domain.PhoneBookDto;
 
 import tools.jackson.databind.json.JsonMapper;
 
-@RestClientTest(value = PhoneBookRestClient.class, properties = "app.phone-book-client.type=REST_CLIENT")
-@Import({ClientProperties.class})
-class PhoneBookRestClientTest {
-
-    @Autowired
-    private PhoneBookRestClient sut;
-
-    @Autowired
-    private MockRestServiceServer server;
+@RestClientTest(value = PhoneBookRestTemplateClient.class, properties = "app.phone-book-client.type=REST_TEMPLATE")
+@Import({PhoneBookClientConfiguration.class, ClientProperties.class})
+class PhoneBookRestTemplateClientTest {
 
     @Autowired
     private JsonMapper mapper;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    private PhoneBookRestTemplateClient sut;
+
+    private MockRestServiceServer server;
+
+    @BeforeEach
+    void setUp() {
+        sut = new PhoneBookRestTemplateClient(restTemplate);
+        server = MockRestServiceServer.createServer(restTemplate);
+    }
 
     private PhoneBookDto newDto() {
         var dto = new PhoneBookDto();

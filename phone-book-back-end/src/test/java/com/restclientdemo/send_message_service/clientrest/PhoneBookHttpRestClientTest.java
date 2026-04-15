@@ -76,7 +76,7 @@ class PhoneBookHttpRestClientTest {
         var result = sut.getPhoneBooks();
 
         assertThat(result).hasSize(1);
-        assertThat(result.get(0).getUserName()).isEqualTo("Alice");
+        assertThat(result.getFirst().getUserName()).isEqualTo("Alice");
     }
 
     @Test
