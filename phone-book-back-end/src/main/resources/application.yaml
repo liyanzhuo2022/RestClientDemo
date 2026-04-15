@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: send-message-service
+    name: echo-service
 
 app:
   phone-book-client:

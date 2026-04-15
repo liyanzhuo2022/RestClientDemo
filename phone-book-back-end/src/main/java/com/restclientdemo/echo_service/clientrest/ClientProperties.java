@@ -1,4 +1,4 @@
-package com.restclientdemo.send_message_service.clientrest;
+package com.restclientdemo.echo_service.clientrest;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

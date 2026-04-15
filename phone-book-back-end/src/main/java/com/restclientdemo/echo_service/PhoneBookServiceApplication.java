@@ -1,4 +1,4 @@
-package com.restclientdemo.send_message_service;
+package com.restclientdemo.echo_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

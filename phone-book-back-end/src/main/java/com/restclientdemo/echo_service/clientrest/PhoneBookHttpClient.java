@@ -1,8 +1,7 @@
-package com.restclientdemo.send_message_service.clientrest;
+package com.restclientdemo.echo_service.clientrest;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.service.annotation.DeleteExchange;
@@ -11,8 +10,8 @@ import org.springframework.web.service.annotation.HttpExchange;
 import org.springframework.web.service.annotation.PostExchange;
 import org.springframework.web.service.annotation.PutExchange;
 
-import com.restclientdemo.send_message_service.domain.PhoneBook;
-import com.restclientdemo.send_message_service.domain.PhoneBookDto;
+import com.restclientdemo.echo_service.domain.PhoneBook;
+import com.restclientdemo.echo_service.domain.PhoneBookDto;
 
 @HttpExchange
 public interface PhoneBookHttpClient {

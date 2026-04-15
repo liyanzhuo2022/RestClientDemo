@@ -1,4 +1,4 @@
-package com.restclientdemo.send_message_service.api;
+package com.restclientdemo.echo_service.api;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.restclientdemo.send_message_service.core.PhoneBookService;
-import com.restclientdemo.send_message_service.domain.PhoneBook;
-import com.restclientdemo.send_message_service.domain.PhoneBookDto;
+import com.restclientdemo.echo_service.core.PhoneBookService;
+import com.restclientdemo.echo_service.domain.PhoneBook;
+import com.restclientdemo.echo_service.domain.PhoneBookDto;
 
 import lombok.RequiredArgsConstructor;
 

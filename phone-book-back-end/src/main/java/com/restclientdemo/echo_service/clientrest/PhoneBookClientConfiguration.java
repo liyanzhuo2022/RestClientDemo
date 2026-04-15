@@ -1,6 +1,6 @@
-package com.restclientdemo.send_message_service.clientrest;
+package com.restclientdemo.echo_service.clientrest;
 
-import static com.restclientdemo.send_message_service.clientrest.ClientFactory.createRestClientInterface;
+import static com.restclientdemo.echo_service.clientrest.ClientFactory.createRestClientInterface;
 
 import org.springframework.boot.restclient.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;

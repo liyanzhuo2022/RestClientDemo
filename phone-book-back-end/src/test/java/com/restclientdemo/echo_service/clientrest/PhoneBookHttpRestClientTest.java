@@ -1,4 +1,4 @@
-package com.restclientdemo.send_message_service.clientrest;
+package com.restclientdemo.echo_service.clientrest;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.delete;
@@ -19,8 +19,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 import org.wiremock.spring.EnableWireMock;
 
-import com.restclientdemo.send_message_service.domain.PhoneBook;
-import com.restclientdemo.send_message_service.domain.PhoneBookDto;
+import com.restclientdemo.echo_service.domain.PhoneBook;
+import com.restclientdemo.echo_service.domain.PhoneBookDto;
 
 import tools.jackson.databind.json.JsonMapper;
 

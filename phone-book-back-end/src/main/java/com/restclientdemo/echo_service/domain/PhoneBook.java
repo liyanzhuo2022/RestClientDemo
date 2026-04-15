@@ -1,4 +1,4 @@
-package com.restclientdemo.send_message_service.domain;
+package com.restclientdemo.echo_service.domain;
 
 import lombok.Getter;
 import lombok.Setter;
