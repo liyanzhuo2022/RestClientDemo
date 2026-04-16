@@ -13,7 +13,7 @@ import com.restclientdemo.echo_service.clientrest.PhoneBookHttpClient;
 @Configuration
 public class PhoneBookClientConfiguration {
 
-    @Bean("HTTP_CLIENT")
+    @Bean("HTTP_INTERFACE")
     PhoneBookHttpClient phoneBookHttpClient(RestClient.Builder restClientBuilder, PhoneBookClientProperties properties) {
         return createRestClientInterface(restClientBuilder, properties, PhoneBookHttpClient.class);
     }

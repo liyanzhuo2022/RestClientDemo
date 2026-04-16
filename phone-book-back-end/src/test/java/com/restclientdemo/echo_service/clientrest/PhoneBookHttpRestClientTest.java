@@ -15,6 +15,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.restclient.test.autoconfigure.RestClientTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 import org.wiremock.spring.EnableWireMock;
@@ -27,9 +28,12 @@ import com.restclientdemo.echo_service.domain.PhoneBookDto;
 import tools.jackson.databind.json.JsonMapper;
 
 @EnableWireMock
-@RestClientTest(value = PhoneBookHttpRestClient.class, properties = "app.phone-book-client.type=HTTP_INTERFACE")
+@RestClientTest(value = PhoneBookHttpRestClient.class)
 @Import({PhoneBookClientConfiguration.class, PhoneBookClientProperties.class})
-@TestPropertySource(properties = {"app.phone-book-client.base-host-url=${wiremock.server.baseUrl}"})
+@TestPropertySource(properties = {
+        "app.phone-book-client.base-host-url=${wiremock.server.baseUrl}",
+        "app.phone-book-client.type=HTTP_INTERFACE"
+})
 class PhoneBookHttpRestClientTest {
     @Autowired
     private PhoneBookHttpRestClient sut;
