@@ -15,13 +15,12 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.restclient.test.autoconfigure.RestClientTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 import org.wiremock.spring.EnableWireMock;
 
-import com.restclientdemo.echo_service.clientrest.configuration.PhoneBookClientProperties;
 import com.restclientdemo.echo_service.clientrest.configuration.PhoneBookClientConfiguration;
+import com.restclientdemo.echo_service.clientrest.configuration.PhoneBookClientProperties;
 import com.restclientdemo.echo_service.domain.PhoneBook;
 import com.restclientdemo.echo_service.domain.PhoneBookDto;
 
