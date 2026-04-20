@@ -120,3 +120,97 @@ public class PhoneBookHttpRestClientDemoTest {
         return pb;
     }
 }
+
+/**
+ * ================ HTTP_INTERFACE DEMO ================
+ * sut class = com.restclientdemo.echo_service.clientrest.PhoneBookHttpRestClient
+ * MockRestServiceServer bean names = [mockRestServiceServer]
+ * mockServer bean present = true
+ * RestClient.Builder bean class = org.springframework.web.client.DefaultRestClientBuilder
+ * Beans of [org.springframework.web.client.RestClient$Builder] = [restClientBuilder]
+ * Beans of [org.springframework.boot.restclient.RestTemplateBuilder] = [restTemplateBuilder]
+ * 2026-04-20T14:53:47.857+02:00  INFO 30512 --- [echo-service] [tp1644128841-54] o.e.j.s.handler.ContextHandler.___admin  : RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.AdminRequestHandler. Normalized mapped under returned 'null'
+ * 2026-04-20T14:53:47.862+02:00  INFO 30512 --- [echo-service] [tp1644128841-54] WireMock.wiremock                        : Admin request received:
+ * 127.0.0.1 - POST /mappings
+ *
+ * Content-Type: [application/json]
+ * Host: [localhost:54802]
+ * Content-Length: [467]
+ * Connection: [keep-alive]
+ * User-Agent: [Apache-HttpClient/5.5.2 (Java/25.0.2)]
+ * {
+ *   "id" : "81c51fb1-3198-4e31-bc3c-8497270cbd95",
+ *   "request" : {
+ *     "url" : "/phone_book",
+ *     "method" : "POST",
+ *     "bodyPatterns" : [ {
+ *       "equalToJson" : "{\"phoneNumber\":\"123456\",\"userName\":\"Alice\"}"
+ *     } ]
+ *   },
+ *   "response" : {
+ *     "status" : 200,
+ *     "body" : "{\"id\":1,\"phoneNumber\":\"123456\",\"userName\":\"Alice\"}",
+ *     "headers" : {
+ *       "Content-Type" : "application/json"
+ *     }
+ *   },
+ *   "uuid" : "81c51fb1-3198-4e31-bc3c-8497270cbd95"
+ * }
+ *
+ * 2026-04-20T14:53:47.892+02:00  INFO 30512 --- [echo-service] [tp1644128841-48] WireMock.wiremock                        : Admin request received:
+ * 127.0.0.1 - GET /requests
+ *
+ * Host: [localhost:54802]
+ * Connection: [keep-alive]
+ * User-Agent: [Apache-HttpClient/5.5.2 (Java/25.0.2)]
+ *
+ *
+ * WireMock requests BEFORE business call = 0
+ * 2026-04-20T14:53:47.925+02:00  INFO 30512 --- [echo-service] [tp1644128841-48] WireMock.wiremock                        : Request received:
+ * 127.0.0.1 - POST /phone_book
+ *
+ * Content-Type: [application/json]
+ * Accept-Encoding: [gzip, x-gzip, deflate]
+ * Host: [localhost:54802]
+ * Transfer-Encoding: [chunked]
+ * Connection: [keep-alive]
+ * User-Agent: [Apache-HttpClient/5.5.2 (Java/25.0.2)]
+ * {"phoneNumber":"123456","userName":"Alice"}
+ *
+ *
+ * Matched response definition:
+ * {
+ *   "status" : 200,
+ *   "body" : "{\"id\":1,\"phoneNumber\":\"123456\",\"userName\":\"Alice\"}",
+ *   "headers" : {
+ *     "Content-Type" : "application/json"
+ *   }
+ * }
+ *
+ * Response:
+ * HTTP/1.1 200
+ * Content-Type: [application/json]
+ * Matched-Stub-Id: [81c51fb1-3198-4e31-bc3c-8497270cbd95]
+ *
+ * Business call returned = {"id":1,"phoneNumber":"123456","userName":"Alice"}
+ * 2026-04-20T14:53:47.941+02:00  INFO 30512 --- [echo-service] [tp1644128841-53] WireMock.wiremock                        : Admin request received:
+ * 127.0.0.1 - GET /requests
+ *
+ * Host: [localhost:54802]
+ * Connection: [keep-alive]
+ * User-Agent: [Apache-HttpClient/5.5.2 (Java/25.0.2)]
+ *
+ *
+ * WireMock requests AFTER business call = 1
+ * WireMock event[0] url=/phone_book, method=POST, body={"phoneNumber":"123456","userName":"Alice"}
+ * =====================================================
+ *
+ * 2026-04-20T14:53:47.958+02:00  INFO 30512 --- [echo-service] [ionShutdownHook] c.w.s.i.WireMockServerCreator wiremock   : Stopping WireMockServer with name 'wiremock'
+ * 2026-04-20T14:53:47.958+02:00  INFO 30512 --- [echo-service] [ionShutdownHook] org.eclipse.jetty.server.Server          : Stopped oejs.Server@61b65d54{STOPPING}[12.1.7,sto=1000]
+ * 2026-04-20T14:53:47.958+02:00  INFO 30512 --- [echo-service] [ionShutdownHook] org.eclipse.jetty.server.Server          : Shutdown oejs.Server@61b65d54{STOPPING}[12.1.7,sto=1000]
+ * 2026-04-20T14:53:47.960+02:00  INFO 30512 --- [echo-service] [ionShutdownHook] o.e.jetty.server.AbstractConnector       : Stopped oejs.NetworkTrafficServerConnector@402f8592{HTTP/1.1, (http/1.1, h2c)}{0.0.0.0:0}
+ * 2026-04-20T14:53:47.961+02:00  INFO 30512 --- [echo-service] [ionShutdownHook] o.e.j.e.servlet.ServletContextHandler    : Stopped oeje10s.ServletContextHandler@38a4e2b0{ROOT,/,b=null,a=AVAILABLE,h=oeje10s.ServletHandler@14c99bf6{STOPPED}}
+ * 2026-04-20T14:53:47.961+02:00  INFO 30512 --- [echo-service] [ionShutdownHook] o.e.j.e.servlet.ServletContextHandler    : Stopped oeje10s.ServletContextHandler@4962b41e{/__admin,/__admin,b=null,a=AVAILABLE,h=oeje10s.ServletHandler@4fecf308{STOPPED}}
+ *
+ * Process finished with exit code 0
+ * */

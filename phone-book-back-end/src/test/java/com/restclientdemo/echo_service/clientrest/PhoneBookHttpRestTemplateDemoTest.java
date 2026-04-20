@@ -121,3 +121,62 @@ public class PhoneBookHttpRestTemplateDemoTest {
         return pb;
     }
 }
+
+
+/**================ REST_TEMPLATE DEMO ================
+ sut class = com.restclientdemo.echo_service.clientrest.PhoneBookRestTemplateClient
+ MockRestServiceServer bean names = [mockRestServiceServer]
+ mockServer bean present = true
+ RestTemplateBuilder bean class = org.springframework.boot.restclient.RestTemplateBuilder
+ RestTemplate bean class = org.springframework.web.client.RestTemplate
+ RestTemplate requestFactory class = org.springframework.test.web.client.MockRestServiceServer$MockClientHttpRequestFactory
+ 2026-04-20T14:52:03.043+02:00  INFO 30465 --- [echo-service] [tp1828438007-54] o.e.j.s.handler.ContextHandler.___admin  : RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.AdminRequestHandler. Normalized mapped under returned 'null'
+ 2026-04-20T14:52:03.049+02:00  INFO 30465 --- [echo-service] [tp1828438007-54] WireMock.wiremock                        : Admin request received:
+ 127.0.0.1 - POST /mappings
+
+ Content-Type: [application/json]
+ Host: [localhost:54662]
+ Content-Length: [467]
+ Connection: [keep-alive]
+ User-Agent: [Apache-HttpClient/5.5.2 (Java/25.0.2)]
+ {
+ "id" : "84a0c540-41a9-4bc5-8489-c9c66cab4581",
+ "request" : {
+ "url" : "/phone_book",
+ "method" : "POST",
+ "bodyPatterns" : [ {
+ "equalToJson" : "{\"phoneNumber\":\"123456\",\"userName\":\"Alice\"}"
+ } ]
+ },
+ "response" : {
+ "status" : 200,
+ "body" : "{\"id\":1,\"phoneNumber\":\"123456\",\"userName\":\"Alice\"}",
+ "headers" : {
+ "Content-Type" : "application/json"
+ }
+ },
+ "uuid" : "84a0c540-41a9-4bc5-8489-c9c66cab4581"
+ }
+
+ 2026-04-20T14:52:03.079+02:00  INFO 30465 --- [echo-service] [tp1828438007-48] WireMock.wiremock                        : Admin request received:
+ 127.0.0.1 - GET /requests
+
+ Host: [localhost:54662]
+ Connection: [keep-alive]
+ User-Agent: [Apache-HttpClient/5.5.2 (Java/25.0.2)]
+
+
+ WireMock requests BEFORE business call = 0
+
+ java.lang.AssertionError: No further requests expected: HTTP POST /phone_book
+ 0 request(s) executed.
+
+
+ at org.springframework.test.web.client.AbstractRequestExpectationManager.createUnexpectedRequestError(AbstractRequestExpectationManager.java:194)
+ at org.springframework.test.web.client.SimpleRequestExpectationManager.matchRequest(SimpleRequestExpectationManager.java:59)
+ at org.springframework.test.web.client.AbstractRequestExpectationManager.validateRequest(AbstractRequestExpectationManager.java:92)
+ at org.springframework.boot.restclient.test.RootUriRequestExpectationManager.validateRequest(RootUriRequestExpectationManager.java:82)
+ at org.springframework.test.web.client.MockRestServiceServer$MockClientHttpRequestFactory$1.executeInternal(MockRestServiceServer.java:331)
+ at org.springframework.mock.http.client.MockClientHttpRequest.execute(MockClientHttpRequest.java:140)
+ at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:754)
+ * */
