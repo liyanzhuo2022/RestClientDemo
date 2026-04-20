@@ -1,9 +1,17 @@
 package com.restclientdemo.echo_service.clientrest;
 
+import static org.apache.hc.core5.util.Timeout.ofMilliseconds;
+
 import java.util.List;
 
+import org.apache.hc.client5.http.config.ConnectionConfig;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
@@ -20,10 +28,10 @@ import lombok.extern.slf4j.Slf4j;
 public class PhoneBookRestClient implements PhoneBookClient {
     private final RestClient restClient;
 
-    // naive approach: create RestClient in constructor
     PhoneBookRestClient(RestClient.Builder restClientBuilder, PhoneBookClientProperties properties) {
         restClient = restClientBuilder
                 .baseUrl(properties.getBaseHostUrl() + "/phone_book")
+                .requestFactory(getHttpClientRequestFactory(properties)) // configure request factory
                 .build();
     }
 
@@ -57,5 +65,34 @@ public class PhoneBookRestClient implements PhoneBookClient {
                 .uri("/{id}", id)
                 .retrieve()
                 .toBodilessEntity();
+    }
+
+    private static ClientHttpRequestFactory getHttpClientRequestFactory(PhoneBookClientProperties properties) {
+        int validateAfterInactivityMillis = properties.getValidateAfterInactivityMillis();
+        int connectTimeoutMillis = properties.getConnectTimeoutMillis();
+        var connectionConfig = ConnectionConfig.custom()
+                .setConnectTimeout(ofMilliseconds(connectTimeoutMillis))
+                .setValidateAfterInactivity(ofMilliseconds(validateAfterInactivityMillis))
+                .build();
+
+        var connectionManager = PoolingHttpClientConnectionManagerBuilder.create()
+                .setMaxConnTotal(properties.getMaxTotalConnections())
+                .setMaxConnPerRoute(properties.getMaxConnectionsPerRoute())
+                .setDefaultConnectionConfig(connectionConfig)
+                .build();
+
+        var requestConfig = RequestConfig.custom()
+                .setConnectionRequestTimeout(ofMilliseconds(connectTimeoutMillis))
+                .setResponseTimeout(ofMilliseconds(properties.getReadTimeoutMillis()))
+                .build();
+
+        var httpClient = HttpClients.custom()
+                .setConnectionManager(connectionManager)
+                .setDefaultRequestConfig(requestConfig)
+                .disableConnectionState()
+                .disableAutomaticRetries()
+                .build();
+
+        return new HttpComponentsClientHttpRequestFactory(httpClient);
     }
 }
