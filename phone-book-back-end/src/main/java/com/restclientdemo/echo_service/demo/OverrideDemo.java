@@ -4,7 +4,7 @@ import org.springframework.boot.restclient.RestTemplateBuilder;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 
-public class UrlDemo {
+public class OverrideDemo {
 
     static void main(String[] args) {
         RestTemplate restTemplate = new RestTemplateBuilder()

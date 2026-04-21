@@ -31,7 +31,7 @@ public class PhoneBookRestClient implements PhoneBookClient {
     PhoneBookRestClient(RestClient.Builder restClientBuilder, PhoneBookClientProperties properties) {
         restClient = restClientBuilder
                 .baseUrl(properties.getBaseHostUrl() + "/phone_book")
-                .requestFactory(getHttpClientRequestFactory(properties)) // configure request factory
+                //.requestFactory(getHttpClientRequestFactory(properties)) // configure request factory
                 .build();
     }
 

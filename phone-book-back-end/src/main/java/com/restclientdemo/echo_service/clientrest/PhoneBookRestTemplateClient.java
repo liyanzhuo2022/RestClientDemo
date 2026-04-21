@@ -30,18 +30,20 @@ import lombok.extern.slf4j.Slf4j;
 public class PhoneBookRestTemplateClient implements PhoneBookClient {
     private final RestTemplate restTemplate;
 
+    private final String PATH = "/phone_book";
+
     @Override
     public PhoneBook createPhoneBook(PhoneBookDto phoneBookDto) {
         var request = new HttpEntity<>(phoneBookDto);
 
-        var response = restTemplate.exchange("/phone_book", POST, request, PhoneBook.class);
+        var response = restTemplate.exchange(PATH, POST, request, PhoneBook.class);
 
         return response.getBody();
     }
 
     @Override
     public List<PhoneBook> getPhoneBooks() {
-        var response = restTemplate.exchange("/phone_book", GET, null, new ParameterizedTypeReference<List<PhoneBook>>() {});
+        var response = restTemplate.exchange(PATH, GET, null, new ParameterizedTypeReference<List<PhoneBook>>() {});
 
         return response.getBody();
     }
@@ -50,12 +52,12 @@ public class PhoneBookRestTemplateClient implements PhoneBookClient {
     public PhoneBook updatePhoneBook(long id, PhoneBookDto phoneBookDto) {
         var request = new HttpEntity<>(phoneBookDto);
 
-        var response = restTemplate.exchange("/phone_book/{id}", PUT, request, PhoneBook.class, id);
+        var response = restTemplate.exchange(PATH + "/{id}", PUT, request, PhoneBook.class, id);
         return response.getBody();
     }
 
     @Override
     public void deletePhoneBook(long id) {
-        restTemplate.exchange("/phone_book/{id}", DELETE, null, void.class, id);
+        restTemplate.exchange(PATH + "/{id}", DELETE, null, void.class, id);
     }
 }
