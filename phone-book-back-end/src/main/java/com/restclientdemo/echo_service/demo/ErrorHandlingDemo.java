@@ -29,9 +29,9 @@ public class ErrorHandlingDemo {
         String body = client.get()
                 .uri("http://httpbin.org/status/404")
                 .retrieve()
-                .onStatus(status -> status.value() == 404, (req, res) -> {
-                    System.out.println("RestClient error handler triggered");
-                })
+//                .onStatus(status -> status.value() == 404, (req, res) -> {
+//                    System.out.println("RestClient error handler triggered");
+//                })
                 .body(String.class);
 
         System.out.println("Done");
