@@ -30,6 +30,7 @@ import tools.jackson.databind.json.JsonMapper;
 
 @EnableWireMock
 @RestClientTest(value = PhoneBookRestTemplateClient.class)
+@AutoConfigureMockRestServiceServer(enabled = false)
 @Import({PhoneBookClientConfiguration.class})
 @EnableConfigurationProperties(PhoneBookClientProperties.class)
 @TestPropertySource(properties = {
